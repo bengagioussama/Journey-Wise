@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ServiceJournal implements IServices<Journal> {
+public class ServiceJournal implements IService<Journal> {
     private Connection connection = DataSource.getInstance().getCon();
     private Statement statement;
 
