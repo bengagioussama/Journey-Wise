@@ -22,7 +22,7 @@ public class ServiceJournal implements IServices<Journal> {
     }
 
     @Override
-    public void ajouter(Journal journal) throws SQLException {
+    public void add(Journal journal) throws SQLException {
         String query = "INSERT INTO journal VALUES (NULL, "
                 + journal.getOffreVoyage() + ", "
                 + journal.getPaysVoyager() + ", "
@@ -91,7 +91,6 @@ public class ServiceJournal implements IServices<Journal> {
 
             return new Journal(journalId, offreVoyage, paysVoyager, titre, descrption, id_user);
         }
-
         return null;
     }
 
