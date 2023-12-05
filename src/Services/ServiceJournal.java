@@ -1,6 +1,6 @@
 package Services;
 
-import Entite.Journal;
+import Entities.Journal;
 import Utils.DataSource;
 
 import java.sql.Connection;

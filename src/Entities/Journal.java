@@ -1,6 +1,4 @@
-package Entite;
-
-import java.util.Date;
+package Entities;
 
 public class Journal {
     private int id;
