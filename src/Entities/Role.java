@@ -1,2 +1,6 @@
-package Entities;public enum Role {
+package Entities;
+
+public enum Role {
+    USER,
+    ADMIN
 }
