@@ -9,4 +9,5 @@ public interface IService <T>{
     void delete(int id) throws  SQLException;
     ArrayList<T> readAll() throws  SQLException;
     T get(int id) throws SQLException;
+
 }
