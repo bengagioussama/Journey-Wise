@@ -7,23 +7,25 @@ public class Journal {
     private String titre;
     private String descrption;
     /*private Date date_creation;*/
-    /*private String url_image;*/
+    private String url_image;
     private int id_user;
 
-    public Journal(int id, String offreVoyage, String paysVoyager, String titre, String descrption, int id_user) {
+    public Journal(int id, String offreVoyage, String paysVoyager, String titre, String descrption, String url_image, int id_user) {
         this.id = id;
         this.offreVoyage = offreVoyage;
         this.paysVoyager = paysVoyager;
         this.titre = titre;
         this.descrption = descrption;
+        this.url_image = url_image;
         this.id_user = id_user;
     }
 
-    public Journal(String offreVoyage, String paysVoyager, String titre, String descrption, int id_user) {
+    public Journal(String offreVoyage, String paysVoyager, String titre, String descrption, String url_image, int id_user) {
         this.offreVoyage = offreVoyage;
         this.paysVoyager = paysVoyager;
         this.titre = titre;
         this.descrption = descrption;
+        this.url_image = url_image;
         this.id_user = id_user;
     }
 
@@ -67,6 +69,13 @@ public class Journal {
         this.descrption = descrption;
     }
 
+    public String getUrl_image() {
+        return url_image;
+    }
+
+    public void setUrl_image(String url_image) {
+        this.url_image = url_image;
+    }
 
     public int getId_user() {
         return id_user;
@@ -84,6 +93,7 @@ public class Journal {
                 ", paysVoyager='" + paysVoyager + '\'' +
                 ", titre='" + titre + '\'' +
                 ", descrption='" + descrption + '\'' +
+                ", url_image='" + url_image + '\'' +
                 ", id_user=" + id_user +
                 '}';
     }

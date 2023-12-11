@@ -23,29 +23,33 @@ public class ServiceJournal implements IService<Journal> {
 
     @Override
     public void add(Journal journal) throws SQLException {
-        String query = "INSERT INTO journal VALUES (NULL, "
-                + journal.getOffreVoyage() + ", "
-                + journal.getPaysVoyager() + ", "
-                + journal.getTitre() + ", "
-                + journal.getDescrption() + ", "
+        String query = "INSERT INTO journal VALUES (NULL, '"
+                + journal.getOffreVoyage() + "', '"
+                + journal.getPaysVoyager() + "', '"
+                + journal.getTitre() + "', '"
+                + journal.getDescrption() + "', '"
+                + journal.getUrl_image() + "', "
                 + journal.getId_user() + ")";
         int res = statement.executeUpdate(query);
-        System.out.println("Nombre de tuples de journal ajoutée : " + res);
+        System.out.println("Nombre de tuples de journal ajoutés : " + res);
     }
+
 
     @Override
     public void update(Journal journal) throws SQLException {
         String query = "UPDATE journal SET " +
-                "offreVoyage = " + journal.getOffreVoyage() + ", " +
-                "paysVoyager = " + journal.getPaysVoyager() + ", " +
-                "titre = " + journal.getTitre() + ", " +
-                "descrption = " + journal.getDescrption() + ", " +
+                "offreVoyage = '" + journal.getOffreVoyage() + "', " +
+                "paysVoyager = '" + journal.getPaysVoyager() + "', " +
+                "titre = '" + journal.getTitre() + "', " +
+                "descrption = '" + journal.getDescrption() + "', " +
+                "url_image = '" + journal.getUrl_image() + "', " +
                 "id_user = " + journal.getId_user() +
                 " WHERE id = " + journal.getId();
 
         int res = statement.executeUpdate(query);
-        System.out.println("Nombre de tuples de journal modifié YAY!!: " + res);
+        System.out.println("Nombre de tuples de journal modifiés : " + res);
     }
+
 
 
     @Override
@@ -66,9 +70,10 @@ public class ServiceJournal implements IService<Journal> {
                 String paysVoyager = resultSet.getString(3);
                 String titre = resultSet.getString(4);
                 String descrption = resultSet.getString(5);
-                int id_user = resultSet.getInt(6);
+                String url_image = resultSet.getString(6);
+                int id_user = resultSet.getInt(7);
 
-                journals.add(new Journal(id, offreVoyage, paysVoyager, titre, descrption, id_user));
+                journals.add(new Journal(id, offreVoyage, paysVoyager, titre, descrption, url_image, id_user));
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -87,9 +92,10 @@ public class ServiceJournal implements IService<Journal> {
             String paysVoyager = resultSet.getString(3);
             String titre = resultSet.getString(4);
             String descrption = resultSet.getString(5);
-            int id_user = resultSet.getInt(6);
+            String url_image = resultSet.getString(6);
+            int id_user = resultSet.getInt(7);
 
-            return new Journal(journalId, offreVoyage, paysVoyager, titre, descrption, id_user);
+            return new Journal(journalId, offreVoyage, paysVoyager, titre, descrption, url_image, id_user);
         }
 
         return null;
