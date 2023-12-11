@@ -1,5 +1,6 @@
 package Services;
 
+import Entities.Offres;
 import Entities.Reservation;
 import Utils.DataSource;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 public class ServiceReservation implements IService<Reservation> {
     private Connection connection= DataSource.getInstance().getCon();
     private Statement statement;
+    private ServiceOffre serviceOffre;
     public ServiceReservation(){
         try {
             statement= connection.createStatement();
@@ -74,7 +76,7 @@ public class ServiceReservation implements IService<Reservation> {
                 int nombrePassages = resultSet.getInt(4);
                 int id_offre=resultSet.getInt(5);
                 int id_membre=resultSet.getInt(6);
-                reservations.add(new Reservation(id,dateDebut,dateFin,nombrePassages,id_offre,id_membre));
+                reservations.add(new Reservation(id,dateDebut,dateFin,nombrePassages,serviceOffre.get(id_offre)));//id_membre));
             }
         }catch (SQLException ex){
             System.out.println(ex);
@@ -92,7 +94,7 @@ public class ServiceReservation implements IService<Reservation> {
                 int nombrePassages = resultSet.getInt(4);
                 int id_offre=resultSet.getInt(5);
                 int id_membre=resultSet.getInt(6);
-                reservations.add(new Reservation(id,dateDebut,dateFin,nombrePassages,id_offre,id_membre));
+                reservations.add(new Reservation(id,dateDebut,dateFin,nombrePassages,serviceOffre.get(id_offre)));//,id_membre));
             }
         }catch (SQLException ex){
             System.out.println(ex);
@@ -108,9 +110,10 @@ public class ServiceReservation implements IService<Reservation> {
             Date dateDebut = resultSet.getDate(2);
             Date dateFin= resultSet.getDate(3);
             int nombrePassages = resultSet.getInt(4);
-            Offre offre=resultSet.getInt(5); // a refaire
-            User user=resultSet.getInt(6); // a refaire
-            return new Reservation(id,dateDebut,dateFin,nombrePassages,offre,user);
+            int id_offre=resultSet.getInt(5); // a refaire
+           // User user=resultSet.getInt(6); // a refaire
+
+            return new Reservation(id,dateDebut,dateFin,nombrePassages,serviceOffre.get(id_offre));//,user);
         }catch (SQLException ex){
             System.out.println(ex);
         }
