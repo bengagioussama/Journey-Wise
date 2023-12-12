@@ -78,7 +78,7 @@ public class ServiceOffre implements IService<Offres>{
 
     @Override
     public Offres get(int id) throws SQLException {
-        String sql = "SELECT * FROM `offres` WHERE `id` = " + id;
+        String sql = "SELECT * FROM offres WHERE id_offre = " + id;
         ResultSet res = ste.executeQuery(sql);
         if (res.next()) {
             String pays = res.getString("pays");
