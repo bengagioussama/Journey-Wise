@@ -12,7 +12,7 @@ public class ServiceReservation implements IService<Reservation> {
     private Connection connection= DataSource.getInstance().getCon();
     private Statement statement;
 
-    //private ServiceOffre serviceOffre;
+    private ServiceOffre serviceOffre= new ServiceOffre();
     public ServiceReservation(){
         try {
             statement= connection.createStatement();
@@ -27,7 +27,7 @@ public class ServiceReservation implements IService<Reservation> {
             preparedStatement.setDate(1, new java.sql.Date(reservation.getDateDebut().getTime()));
             preparedStatement.setDate(2, new java.sql.Date(reservation.getDateFin().getTime()));
             preparedStatement.setInt(3, reservation.getNombrePassages());
-            preparedStatement.setInt(4, 1);
+            preparedStatement.setInt(4, reservation.getOffre().getId_offre());
             preparedStatement.setInt(5, 0);
 
             int res = preparedStatement.executeUpdate();
@@ -51,7 +51,7 @@ public class ServiceReservation implements IService<Reservation> {
                 preparedStatement.setDate(2, new java.sql.Date(t.getDateFin().getTime()));
                 preparedStatement.setInt(3, t.getNombrePassages());
                 preparedStatement.setInt(4, t.getOffre().getId_offre());
-                preparedStatement.setInt(5, 0);
+                preparedStatement.setInt(5, t.getOffre().getId_offre());
                 preparedStatement.setInt(6, t.getId());
 
                 int res = preparedStatement.executeUpdate();
@@ -88,9 +88,9 @@ public class ServiceReservation implements IService<Reservation> {
                 Date dateDebut = resultSet.getDate(2);
                 Date dateFin= resultSet.getDate(3);
                 int nombrePassages = resultSet.getInt(4);
-                int id_offre=resultSet.getInt(5);
+                Offres offre = (serviceOffre.get(resultSet.getInt(5)));
                 //int id_membre=resultSet.getInt(6);
-                reservations.add(new Reservation(id, dateDebut, dateFin, nombrePassages, new Offres(id_offre,"","","","",0)));//id_membre));
+                reservations.add(new Reservation(id, dateDebut, dateFin, nombrePassages,offre ));//id_membre));
             }
         }catch (SQLException ex){
             System.out.println(ex);
@@ -106,9 +106,9 @@ public class ServiceReservation implements IService<Reservation> {
                 Date dateDebut = resultSet.getDate(2);
                 Date dateFin= resultSet.getDate(3);
                 int nombrePassages = resultSet.getInt(4);
-                int id_offre=resultSet.getInt(5);
+                Offres offre = (serviceOffre.get(1));
                 int id_membre=resultSet.getInt(6);
-                reservations.add(new Reservation(id, dateDebut, dateFin, nombrePassages, null));//serviceOffre.get(id_offre)));//,id_membre));
+                reservations.add(new Reservation(id, dateDebut, dateFin, nombrePassages, offre));//serviceOffre.get(id_offre)));//,id_membre));
             }
         }catch (SQLException ex){
             System.out.println(ex);
@@ -125,10 +125,10 @@ public class ServiceReservation implements IService<Reservation> {
                 Date dateDebut = resultSet.getDate(2);
                 Date dateFin = resultSet.getDate(3);
                 int nombrePassages = resultSet.getInt(4);
-                int id_offre = resultSet.getInt(5); // a refaire
+                Offres offre = (serviceOffre.get(1));
                 // User user = resultSet.getInt(6); // a refaire
 
-                return new Reservation(id, dateDebut, dateFin, nombrePassages, null);//serviceOffre.get(id_offre));//,user);
+                return new Reservation(id, dateDebut, dateFin, nombrePassages, offre);//,user);
             } else {
                 System.out.println("No reservation found with ID: " + idR);
             }
